@@ -1,1 +1,75 @@
-<p>data works!</p>
+<h4>Formularios <small>data</small></h4>
+
+<hr>
+
+<form [formGroup]='forma' (ngSubmit)="guardarCambios()">
+    <div formGroupName="nombreCompleto">
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Nombre</label>
+            <div class="col-8">
+                <input class="form-control" type="text" placeholder="Nombre" formControlName="nombre" [ngClass]="{'is-valid': forma.get('nombreCompleto.nombre').valid, 'is-invalid': forma.get('nombreCompleto.nombre').touched && !forma.get('nombreCompleto.nombre').valid }">
+                <div class="form-control-feedback  invalid-feedback" *ngIf="forma.get('nombreCompleto.nombre').hasError('required')">
+                    El nombre es nesesario
+                </div>
+                <div class="form-control-feedback invalid-feedback" *ngIf="forma.get('nombreCompleto.nombre').hasError('minlength')">
+                    El campo debe de tener minimo 5 caracteres
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Apellido</label>
+            <div class="col-8">
+                <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido" [ngClass]="{'is-valid': forma.get('nombreCompleto.apellido').valid, 'is-invalid': forma.get('nombreCompleto.apellido').touched && !forma.get('nombreCompleto.apellido').valid }">
+
+                <div class="form-control-feedback invalid-feedback" *ngIf="forma.get('nombreCompleto.apellido').hasError('required')">
+                    El apellido es nesesario
+                </div>
+                <div class="form-control-feedback invalid-feedback" *ngIf="forma.get('nombreCompleto.apellido').hasError('minlength')">
+                    El campo debe de tener minimo 5 caracteres
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Correo</label>
+        <div class="col-md-8">
+
+            <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="email" [ngClass]="{'is-valid': forma.get('email').valid, 'is-invalid': forma.get('email').touched && !forma.get('email').valid }">
+
+            <div class="form-control-feedback invalid-feedback" *ngIf="forma.get('email').touched && forma.get('email').hasError('required')">
+                El email es nesesario
+            </div>
+
+            <div class="form-control-feedback invalid-feedback" *ngIf="forma.get('email').touched && forma.get('email').hasError('pattern')">
+                Debes de introducir un correo electronico
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Pasatiempos</label>
+
+
+        <div class="col-md-8" formArrayName="pasatiempos">
+
+            <input *ngFor="let p of forma.controls['pasatiempos'].controls; let i = index" [formControlName]="i" class="form-control mt-2" type="text">
+
+            <button type="button" (click)="agregarPasatiempo()" class="btn btn-primary mt-2">Nuevo</button>
+
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group col-md-8">
+            <button type="submit" class="btn btn-outline-primary">
+                Guardar
+            </button>
+        </div>
+    </div>
+
+</form>
+<pre>{{ forma.valid }}</pre>
+<pre>{{ forma.value | json }}</pre>
