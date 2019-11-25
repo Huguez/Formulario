@@ -3,6 +3,7 @@
 <hr>
 
 <form [formGroup]='forma' (ngSubmit)="guardarCambios()">
+
     <div formGroupName="nombreCompleto">
         <div class="form-group row">
             <label class="col-2 col-form-label">Nombre</label>
@@ -49,8 +50,54 @@
     </div>
 
     <div class="form-group row">
-        <label class="col-2 col-form-label">Pasatiempos</label>
+        <label class="col-2 col-form-label">Username</label>
+        <div class="col-md-8">
 
+            <input class="form-control" type="text" placeholder="Username" formControlName="username" [ngClass]="{'is-valid': forma.get('username').valid, 'is-invalid': forma.get('username').touched && !forma.get('username').valid }">
+
+            <div class="form-control-feedback invalid-feedback" *ngIf="forma.get('username').touched && forma.get('username').hasError('required')">
+                El Username es nesesario
+            </div>
+
+            <div class="form-control-feedback invalid-feedback" *ngIf="forma.get('username').touched && forma.get('username').hasError('existe')">
+                El usuario ya existe!!!!
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Password</label>
+        <div class="col-md-8">
+
+            <input class="form-control" type="password" formControlName="password1" [ngClass]="{'is-valid': forma.get('password1').valid, 'is-invalid': forma.get('password1').touched && !forma.get('password1').valid }">
+
+            <div class="form-control-feedback invalid-feedback" *ngIf="forma.get('password1').touched && forma.get('password1').hasError('required')">
+                El password es nesesario
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">confirmar Password </label>
+        <div class="col-md-8">
+
+            <input class="form-control" type="password" formControlName="password2" [ngClass]="{'is-valid': forma.get('password2').valid, 'is-invalid': forma.get('password2').touched && !forma.get('password2').valid }">
+
+            <div class="form-control-feedback invalid-feedback" *ngIf="forma.get('password2').touched && forma.get('password2').hasError('required')">
+                La confimacion es nesesario
+            </div>
+
+            <div class="form-control-feedback invalid-feedback" *ngIf="forma.get('password2').touched && forma.get('password2').hasError('noiguales')">
+                El password no es igual
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Pasatiempos</label>
 
         <div class="col-md-8" formArrayName="pasatiempos">
 
@@ -71,5 +118,10 @@
     </div>
 
 </form>
-<pre>{{ forma.valid }}</pre>
+
+<pre>Valid: {{ forma.valid }}</pre>
+<pre>Status: {{ forma.status }}</pre>
+
+<!--
 <pre>{{ forma.value | json }}</pre>
+-->
