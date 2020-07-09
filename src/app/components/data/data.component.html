@@ -101,8 +101,9 @@
 
         <div class="col-md-8" formArrayName="pasatiempos">
 
-            <input *ngFor="let p of forma.controls['pasatiempos'].controls; let i = index" [formControlName]="i" class="form-control mt-2" type="text">
+            <!-- {{ forma.get('pasatiempos')['controls'] }} -->
 
+            <input *ngFor="let p of forma.get('pasatiempos')['controls']; let i = index" [formControlName]="i" class="form-control mt-2" type="text">
             <button type="button" (click)="agregarPasatiempo()" class="btn btn-primary mt-2">Nuevo</button>
 
         </div>
